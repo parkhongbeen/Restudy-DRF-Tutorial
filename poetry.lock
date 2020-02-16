@@ -602,7 +602,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools"]
 
 [metadata]
-content-hash = "d1665d82f211923a5080a2b2da1d33bb727c6d9d769d66ae4617ea09160f538c"
+content-hash = "44fad2a34b02e38279cb5abb8477f867d824efd1b3aeee8b5069b13b2d09e3e1"
 python-versions = "^3.7"
 
 [metadata.files]
