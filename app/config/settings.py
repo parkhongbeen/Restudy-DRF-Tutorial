@@ -33,7 +33,6 @@ AUTH_USER_MODEL = 'members.User'
 INSTALLED_APPS = [
     'snippets.apps.SnippetsConfig',
     'members.apps.MembersConfig',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
