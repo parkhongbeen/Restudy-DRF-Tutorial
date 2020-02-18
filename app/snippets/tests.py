@@ -1,8 +1,10 @@
 import random
 
+from model_bakery import baker
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from members.models import User
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer
 
@@ -15,13 +17,13 @@ class SnippetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 0)
 
-        for i in range(5):
-            Snippet.objects.create(code='5')
+        baker.make(Snippet, __quantity=5)
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 5)
 
         for snippet_data in response.data:
+            self.assertIn('author', snippet_data)
             self.assertIn('title', snippet_data)
             self.assertIn('code', snippet_data)
             self.assertIn('linenos', snippet_data)
@@ -39,7 +41,9 @@ class SnippetTest(APITestCase):
 
     def test_snippet_create(self):
         url = '/api-view/snippets/'
+        user = baker.make(User)
         data = {
+            'author': user.pk,
             'code': 'def.abc():',
         }
         response = self.client.post(url, data=data)
@@ -54,10 +58,9 @@ class SnippetTest(APITestCase):
         self.assertEqual(Snippet.objects.count(), 1)
 
     def test_snippet_delete(self):
-        snippet = [Snippet.objects.create(code=1) for i in range(5)]
-        self.assertEqual(snippet.objects.count(), 5)
+        snippets = baker.make(Snippet, _quantity=5)
 
-        snippet = random.choice(snippet)
+        snippet = random.choice(snippets)
         url = f'/api-view/snippets/{snippet.pk}/'
         response = self.client.delete(url)
 
