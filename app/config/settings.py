@@ -32,6 +32,7 @@ AUTH_USER_MODEL = 'members.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BaseicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
@@ -49,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
