@@ -10,9 +10,9 @@ STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 class Snippet(models.Model):
     class Snippet(models.Model):
-        # author = models.ForeignKey(
-        #     settings.AUTH_USER_MODEL, on_delete=models.Model
-        # )
+        author = models.ForeignKey(
+            settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+        )
         created = models.DateTimeField(auto_now_add=True)
         title = models.CharField(max_length=100, blank=True)
         code = models.TextField()
